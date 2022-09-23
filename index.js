@@ -4,6 +4,7 @@ const errorHandler = require('./middleware/errorHandler');
 const userRouter = require('./routes/v1/user.route');
 const {  connectToServer } = require('./utils/databaseConnection');
 const app = express();
+app.use(express.json());
 const port = process.env.port || 4000;
 
 connectToServer((err)=>{
