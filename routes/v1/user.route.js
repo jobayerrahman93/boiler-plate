@@ -1,9 +1,11 @@
 const express = require('express');
-const { getAllUser } = require('../../controller/users.controller');
+const { getAllUser, saveUser } = require('../../controller/users.controller');
 const router = express.Router();
 
 
-router.get('/',getAllUser);
+router.route('/')
+.get(getAllUser)
+.post(saveUser);
 
 
 module.exports=router;
