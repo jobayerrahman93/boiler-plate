@@ -1,7 +1,34 @@
+const { ObjectId } = require("mongodb");
 const { getDb } = require("../utils/databaseConnection")
 
-const getAllUser=(req,res)=>{
-    res.send('this is user route')
+const getAllUser=async(req,res,next)=>{
+   try {
+
+    const db= getDb();
+    const users = await db.collection('users').find().toArray();
+    res.status(200).json({success:true, data:users});
+    
+   } catch (err) {
+    next(err)
+
+   }
+}
+
+const getSingleUser=async(req,res,next)=>{
+   try {
+
+    const {id} = req.params;
+    if(!ObjectId.isValid(id)){
+    return res.status(400).json({success:false,message:'invalid id'});
+    }
+    const db= getDb();
+    const singleUser = await db.collection('users').findOne({_id: ObjectId(id)});
+    res.status(200).json({success:true,data:singleUser});
+    
+   } catch (err) {
+    next(err)
+
+   }
 }
 
 const saveUser=async(req,res,next)=>{
@@ -16,16 +43,16 @@ const saveUser=async(req,res,next)=>{
         res.status(400).send({status:false,error:'something went wrong'})
     }
 
-    res.send(`user added with ${result.insertedId}`);
+    res.status(200).json({success:true, message:'successfully data saved'});
     
    } catch (err) {
     next(err)
    }
-
     
 }
 
 module.exports={
     getAllUser,
+    getSingleUser,
     saveUser
 }
