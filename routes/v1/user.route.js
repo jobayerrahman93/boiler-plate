@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUser, saveUser, getSingleUser } = require('../../controller/users.controller');
+const { getAllUser, saveUser, getSingleUser, updateUser, deleteUser } = require('../../controller/users.controller');
 const router = express.Router();
 
 
@@ -10,6 +10,8 @@ router.route('/')
 router
 .route('/:id')
 .get(getSingleUser)
+.patch(updateUser)
+.delete(deleteUser)
 
 
 
