@@ -61,7 +61,7 @@ const updateUser=async(req,res,next)=>{
  
      const {id} = req.params;
      if(!ObjectId.isValid(id)){
-     return res.status(400).json({success:false,message:'invalid id'});
+     return res.status(400).json({success:false,message:'invalid user id'});
      }
      const db= getDb();
      const singleUser = await db.collection('users').updateOne({_id: ObjectId(id)},{$set: req.body});
@@ -80,7 +80,7 @@ const deleteUser=async(req,res,next)=>{
  
      const {id} = req.params;
      if(!ObjectId.isValid(id)){
-     return res.status(400).json({success:false,message:'invalid id'});
+     return res.status(400).json({success:false,message:'invalid user id'});
      }
      const db= getDb();
      const deleteUser = await db.collection('users').deleteOne({_id: ObjectId(id)});
